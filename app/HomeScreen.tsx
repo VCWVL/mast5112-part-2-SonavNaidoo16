@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -9,7 +9,7 @@ import {
   Alert,
   FlatList,
 } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router"; 
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 type Dish = {
   id: string;
@@ -19,17 +19,30 @@ type Dish = {
   price: number;
 };
 
-export default function HomeScreen({
-  dishes = [],
-  setDishes = () => {},
-}: any) {
-  const router = useRouter(); 
+export default function HomeScreen() {
+  const router = useRouter();
   const params = useLocalSearchParams();
-  const role = params.role || "user"; 
+  const role = params.role || "user";
+
+  // Initialize dishes from navigation params if present
+  const initialDishes = params.dishes ? JSON.parse(params.dishes as string) : [];
+  const [dishes, setDishes] = useState<Dish[]>(initialDishes);
+
+  // ✅ Add new dish sent from AddDishScreen
+  useEffect(() => {
+    if (params.newDish) {
+      try {
+        const newDish: Dish = JSON.parse(params.newDish as string);
+        setDishes((prev) => [...prev, newDish]);
+      } catch (error) {
+        console.warn("Invalid dish data received:", error);
+      }
+    }
+  }, [params.newDish]);
 
   const total = dishes.length;
   const average = total
-    ? dishes.reduce((sum: number, d: Dish) => sum + d.price, 0) / total
+    ? dishes.reduce((sum, d) => sum + d.price, 0) / total
     : 0;
 
   const handleReset = () => {
@@ -94,7 +107,15 @@ export default function HomeScreen({
           <>
             <TouchableOpacity
               style={styles.card}
-              onPress={() => router.push("/AddDishScreen")} 
+              onPress={() =>
+                router.push({
+                  pathname: "/AddDishScreen",
+                  params: {
+                    role,
+                    currentDishes: JSON.stringify(dishes), // pass current dishes
+                  },
+                })
+              }
             >
               <Text style={styles.cardTitle}>Add Dish</Text>
               <Text style={styles.cardText}>Add new dishes to your menu.</Text>
@@ -102,7 +123,7 @@ export default function HomeScreen({
 
             <TouchableOpacity
               style={styles.card}
-              onPress={() => router.push("/FilterScreen")} 
+              onPress={() => router.push("/FilterScreen")}
             >
               <Text style={styles.cardTitle}>Filter Menu</Text>
               <Text style={styles.cardText}>
@@ -112,7 +133,7 @@ export default function HomeScreen({
 
             <TouchableOpacity
               style={styles.card}
-              onPress={() => router.push("/RemoveDishScreen")} 
+              onPress={() => router.push("/RemoveDishScreen")}
             >
               <Text style={styles.cardTitle}>Remove Dish</Text>
               <Text style={styles.cardText}>
@@ -122,7 +143,7 @@ export default function HomeScreen({
 
             <TouchableOpacity
               style={styles.card}
-              onPress={() => router.push("/HelpScreen")} 
+              onPress={() => router.push("/HelpScreen")}
             >
               <Text style={styles.cardTitle}>Help</Text>
               <Text style={styles.cardText}>
@@ -141,17 +162,15 @@ export default function HomeScreen({
             </TouchableOpacity>
           </>
         ) : (
-          <>
-            <TouchableOpacity
-              style={styles.card}
-              onPress={() => router.push("/HelpScreen")} 
-            >
-              <Text style={styles.cardTitle}>Help</Text>
-              <Text style={styles.cardText}>
-                Learn how to use the app and get assistance.
-              </Text>
-            </TouchableOpacity>
-          </>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => router.push("/HelpScreen")}
+          >
+            <Text style={styles.cardTitle}>Help</Text>
+            <Text style={styles.cardText}>
+              Learn how to use the app and get assistance.
+            </Text>
+          </TouchableOpacity>
         )}
       </ScrollView>
     </ImageBackground>
@@ -159,104 +178,21 @@ export default function HomeScreen({
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    resizeMode: "cover",
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0,0,0,0.6)",
-  },
-  container: {
-    padding: 20,
-    alignItems: "center",
-    paddingTop: 80,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 8,
-    color: "#fff",
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 20,
-    color: "#ddd",
-  },
-  statsBox: {
-    backgroundColor: "rgba(255,255,255,0.15)",
-    borderRadius: 15,
-    padding: 15,
-    marginBottom: 20,
-    width: "100%",
-    alignItems: "center",
-  },
-  statsText: {
-    fontSize: 16,
-    color: "#fff",
-    fontWeight: "600",
-  },
-  card: {
-    backgroundColor: "rgba(123, 44, 191, 0.3)",
-    borderRadius: 15,
-    padding: 20,
-    marginBottom: 15,
-    width: "100%",
-    shadowColor: "#7B2CBF",
-    shadowOpacity: 0.5,
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 10,
-    elevation: 4,
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: "700",
-    marginBottom: 6,
-    color: "#fff",
-  },
-  cardText: {
-    fontSize: 14,
-    color: "#ccc",
-  },
-  sectionTitle: {
-    fontSize: 22,
-    fontWeight: "700",
-    color: "#fff",
-    alignSelf: "flex-start",
-    marginBottom: 10,
-  },
-  menuCard: {
-    flexDirection: "row",
-    backgroundColor: "rgba(255,255,255,0.1)",
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.2)",
-  },
-  menuName: {
-    color: "#fff",
-    fontWeight: "700",
-    fontSize: 18,
-    marginBottom: 4,
-  },
-  menuDesc: {
-    color: "#ccc",
-    fontSize: 13,
-  },
-  menuCourse: {
-    color: "#fff",
-    fontWeight: "600",
-  },
-  menuPrice: {
-    color: "#ddd",
-    fontSize: 14,
-  },
-  emptyText: {
-    color: "#bbb",
-    textAlign: "center",
-    marginTop: 10,
-  },
+  background: { flex: 1, resizeMode: "cover" },
+  overlay: { ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(0,0,0,0.6)" },
+  container: { padding: 20, alignItems: "center", paddingTop: 80 },
+  title: { fontSize: 32, fontWeight: "bold", textAlign: "center", marginBottom: 8, color: "#fff" },
+  subtitle: { fontSize: 16, textAlign: "center", marginBottom: 20, color: "#ddd" },
+  statsBox: { backgroundColor: "rgba(255,255,255,0.15)", borderRadius: 15, padding: 15, marginBottom: 20, width: "100%", alignItems: "center" },
+  statsText: { fontSize: 16, color: "#fff", fontWeight: "600" },
+  card: { backgroundColor: "rgba(123, 44, 191, 0.3)", borderRadius: 15, padding: 20, marginBottom: 15, width: "100%", shadowColor: "#7B2CBF", shadowOpacity: 0.5, shadowOffset: { width: 0, height: 0 }, shadowRadius: 10, elevation: 4 },
+  cardTitle: { fontSize: 20, fontWeight: "700", marginBottom: 6, color: "#fff" },
+  cardText: { fontSize: 14, color: "#ccc" },
+  sectionTitle: { fontSize: 22, fontWeight: "700", color: "#fff", alignSelf: "flex-start", marginBottom: 10 },
+  menuCard: { flexDirection: "row", backgroundColor: "rgba(255,255,255,0.1)", borderRadius: 10, padding: 15, marginBottom: 10, borderWidth: 1, borderColor: "rgba(255,255,255,0.2)" },
+  menuName: { color: "#fff", fontWeight: "700", fontSize: 18, marginBottom: 4 },
+  menuDesc: { color: "#ccc", fontSize: 13 },
+  menuCourse: { color: "#fff", fontWeight: "600" },
+  menuPrice: { color: "#ddd", fontSize: 14 },
+  emptyText: { color: "#bbb", textAlign: "center", marginTop: 10 },
 });

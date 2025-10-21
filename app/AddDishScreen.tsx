@@ -8,7 +8,7 @@ import {
   ImageBackground,
   Alert,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter, useLocalSearchParams } from "expo-router";
 
 type Dish = {
   id: string;
@@ -18,8 +18,16 @@ type Dish = {
   price: number;
 };
 
-export default function AddDishScreen({ dishes = [], setDishes = () => {} }: any) {
-  const navigation = useNavigation();
+export default function AddDishScreen() {
+  const router = useRouter();
+  const params = useLocalSearchParams();
+  const role = params.role || "user";
+
+  // Parse current dishes from params or start empty
+  const initialDishes = params.currentDishes
+    ? JSON.parse(params.currentDishes as string)
+    : [];
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [course, setCourse] = useState("");
@@ -39,9 +47,18 @@ export default function AddDishScreen({ dishes = [], setDishes = () => {} }: any
       price: parseFloat(price),
     };
 
-    setDishes([...dishes, newDish]);
     Alert.alert("Success", "Dish added successfully!");
-    navigation.goBack();
+
+    // Send back full dishes array including new dish
+    const updatedDishes = [...initialDishes, newDish];
+
+    router.replace({
+      pathname: "/HomeScreen",
+      params: {
+        role,
+        dishes: JSON.stringify(updatedDishes),
+      },
+    });
   };
 
   return (
@@ -94,46 +111,11 @@ export default function AddDishScreen({ dishes = [], setDishes = () => {} }: any
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0,0,0,0.6)",
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-  title: {
-    fontSize: 28,
-    color: "#fff",
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  input: {
-    width: "100%",
-    borderWidth: 1,
-    borderColor: "#7B2CBF",
-    backgroundColor: "rgba(255,255,255,0.1)",
-    color: "#fff",
-    padding: 12,
-    borderRadius: 10,
-    marginBottom: 15,
-  },
-  button: {
-    backgroundColor: "#7B2CBF",
-    paddingVertical: 14,
-    paddingHorizontal: 80,
-    borderRadius: 25,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
+  background: { flex: 1, resizeMode: "cover", justifyContent: "center" },
+  overlay: { ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(0,0,0,0.6)" },
+  container: { flex: 1, justifyContent: "center", alignItems: "center", padding: 20 },
+  title: { fontSize: 28, color: "#fff", fontWeight: "bold", marginBottom: 20 },
+  input: { width: "100%", borderWidth: 1, borderColor: "#7B2CBF", backgroundColor: "rgba(255,255,255,0.1)", color: "#fff", padding: 12, borderRadius: 10, marginBottom: 15 },
+  button: { backgroundColor: "#7B2CBF", paddingVertical: 14, paddingHorizontal: 80, borderRadius: 25 },
+  buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
 });
