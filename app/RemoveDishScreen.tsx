@@ -1,120 +1,188 @@
-import React, { useState } from "react";
+import React from "react"; 
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
+  TouchableOpacity,
   FlatList,
   Alert,
   ImageBackground,
+  ScrollView,
 } from "react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 type Dish = {
   id: string;
   name: string;
   description: string;
-  course: string;
+  course: "Starter" | "Main" | "Dessert" | string;
   price: number;
 };
 
-export default function RemoveDishScreen({ dishes = [], setDishes = () => {} }: any) {
-  const [selected, setSelected] = useState<string | null>(null);
+const RemovableMenuItem: React.FC<{
+  dish: Dish;
+  onRemove: (id: string) => void;
+}> = ({ dish, onRemove }) => (
+  <View style={removeStyles.menuItemContainer}>
+    <View style={removeStyles.dishInfo}>
+      <Text style={removeStyles.dishName}>{dish.name}</Text>
+      <Text style={removeStyles.dishPrice}>R {dish.price.toFixed(2)}</Text>
+    </View>
+    <TouchableOpacity
+      style={removeStyles.removeButton}
+      onPress={() => onRemove(dish.id)}
+    >
+      <Text style={removeStyles.removeButtonText}>Remove</Text>
+    </TouchableOpacity>
+  </View>
+);
 
-  const handleRemove = (id: string) => {
-    Alert.alert("Confirm Delete", "Are you sure you want to remove this dish?", [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Yes",
-        onPress: () => {
-          const updated = dishes.filter((dish: Dish) => dish.id !== id);
-          setDishes(updated);
-          setSelected(null);
-          Alert.alert("Success", "Dish removed successfully!");
+export default function RemoveDishScreen() {
+  const router = useRouter();
+  const params = useLocalSearchParams();
+  const initialDishes: Dish[] = params.currentDishes
+    ? JSON.parse(params.currentDishes as string)
+    : [];
+    
+  const handleRemoveDish = (idToRemove: string) => {
+    const dishName = initialDishes.find((d) => d.id === idToRemove)?.name || "this dish";
+
+    Alert.alert(
+      "Confirm Removal",
+      `Are you sure you want to remove ${dishName}? This action cannot be undone.`,
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Remove",
+          style: "destructive",
+          onPress: () => {
+            const newDishes = initialDishes.filter((dish) => dish.id !== idToRemove);
+            Alert.alert("Removed", `${dishName} has been removed from the menu.`);
+            router.replace({
+              pathname: "/",
+              params: {
+                role: params.role || "user", 
+                dishes: JSON.stringify(newDishes), 
+              },
+            });
+          },
         },
-      },
-    ]);
+      ]
+    );
   };
 
   return (
     <ImageBackground
       source={{
-        uri: "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1000&q=80",
+        uri: "https://png.pngtree.com/thumb_back/fw800/background/20231230/pngtree-illustrated-vector-background-restaurant-menu-design-with-paper-texture-food-and-image_13914730.png",
       }}
-      style={styles.background}
+      style={removeStyles.background}
     >
-      <View style={styles.overlay} />
-      <View style={styles.container}>
-        <Text style={styles.title}>Remove Dish</Text>
+      <View style={removeStyles.overlay} />
 
-        {dishes.length === 0 ? (
-          <Text style={styles.emptyText}>No dishes available.</Text>
+      <ScrollView contentContainerStyle={removeStyles.container}>
+        <Text style={removeStyles.title}>Remove Dish</Text>
+        <Text style={removeStyles.subtitle}>
+          Select a dish to permanently remove it from the menu.
+        </Text>
+
+        {initialDishes.length === 0 ? (
+          <Text style={removeStyles.emptyText}>
+            The menu is empty. Nothing to remove.
+          </Text>
         ) : (
           <FlatList
-            data={dishes}
+            data={initialDishes} 
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <TouchableOpacity
-                style={[
-                  styles.card,
-                  selected === item.id && { backgroundColor: "rgba(220,20,60,0.4)" },
-                ]}
-                onPress={() => handleRemove(item.id)}
-              >
-                <Text style={styles.cardTitle}>{item.name}</Text>
-                <Text style={styles.cardText}>{item.description}</Text>
-                <Text style={styles.cardPrice}>R {item.price.toFixed(2)}</Text>
-              </TouchableOpacity>
+              <RemovableMenuItem dish={item} onRemove={handleRemoveDish} />
             )}
+            contentContainerStyle={removeStyles.listContainer}
           />
         )}
-      </View>
+        
+        <TouchableOpacity
+          style={removeStyles.backButton}
+          onPress={() => router.back()}
+        >
+          <Text style={removeStyles.backButtonText}>Go Back</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </ImageBackground>
   );
 }
 
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    resizeMode: "cover",
-  },
+const removeStyles = StyleSheet.create({
+  background: { flex: 1, resizeMode: "cover" },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(0,0,0,0.6)",
   },
-  container: {
-    flex: 1,
-    padding: 20,
-    paddingTop: 70,
-  },
+  container: { padding: 20, alignItems: "center", paddingTop: 80 },
   title: {
-    fontSize: 28,
-    color: "#fff",
+    fontSize: 32,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: 8,
+    color: "#fff",
   },
-  card: {
-    backgroundColor: "rgba(123,44,191,0.3)",
+  subtitle: {
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 20,
+    color: "#ddd",
+  },
+  emptyText: { color: "#bbb", textAlign: "center", marginTop: 10 },
+  listContainer: { width: "100%", paddingBottom: 20 },
+
+  menuItemContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
     borderRadius: 10,
     padding: 15,
     marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.2)",
+    width: "100%",
+    borderLeftWidth: 4,
+    borderLeftColor: "crimson",
   },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
+  dishInfo: {
+    flex: 1,
+    marginRight: 10,
+  },
+  dishName: {
     color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
   },
-  cardText: {
-    color: "#ddd",
+  dishPrice: {
+    color: "#ccc",
+    fontSize: 14,
+    marginTop: 2,
   },
-  cardPrice: {
-    color: "#bbb",
+  removeButton: {
+    backgroundColor: "crimson",
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+  removeButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
     fontSize: 14,
   },
-  emptyText: {
-    color: "#ccc",
-    textAlign: "center",
+  backButton: {
+    backgroundColor: "rgba(201, 68, 27, 0.5)",
+    borderRadius: 15,
+    padding: 15,
+    width: "100%",
+    marginTop: 20,
+    alignItems: "center",
+  },
+  backButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "700",
   },
 });

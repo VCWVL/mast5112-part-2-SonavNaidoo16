@@ -7,16 +7,21 @@ import {
   ImageBackground,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router"; 
 
 export default function LoginScreen() {
   const router = useRouter();
+  const params = useLocalSearchParams(); 
   const [selectedUser, setSelectedUser] = useState("user");
+  const dishesFromLogout = params.dishes; 
 
   const handleLogin = () => {
-    router.push({
+    router.replace({ 
       pathname: "/HomeScreen",
-      params: { role: selectedUser },
+      params: { 
+        role: selectedUser,
+        dishes: dishesFromLogout, 
+      },
     });
   };
 
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
     width: 250,
   },
   picker: {
-    color: "#000000ff",
+    color: "#000000ff", 
   },
   button: {
     backgroundColor: "#99470cff",
