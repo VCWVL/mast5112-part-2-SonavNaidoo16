@@ -24,11 +24,9 @@ export default function HomeScreen() {
   const params = useLocalSearchParams();
   const role = params.role || "user";
 
-  // Initialize dishes from navigation params if present
   const initialDishes = params.dishes ? JSON.parse(params.dishes as string) : [];
   const [dishes, setDishes] = useState<Dish[]>(initialDishes);
 
-  // ✅ Add new dish sent from AddDishScreen
   useEffect(() => {
     if (params.newDish) {
       try {
@@ -55,7 +53,7 @@ export default function HomeScreen() {
   return (
     <ImageBackground
       source={{
-        uri: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1000&q=80",
+        uri: "https://png.pngtree.com/thumb_back/fw800/background/20231230/pngtree-illustrated-vector-background-restaurant-menu-design-with-paper-texture-food-and-image_13914730.png",
       }}
       style={styles.background}
     >
@@ -70,6 +68,7 @@ export default function HomeScreen() {
         <Text style={[styles.sectionTitle, { marginTop: 20 }]}>
           Current Menu
         </Text>
+
         {dishes.length === 0 ? (
           <Text style={styles.emptyText}>
             No dishes yet. Add a dish to get started.
@@ -81,16 +80,12 @@ export default function HomeScreen() {
             scrollEnabled={false}
             renderItem={({ item }) => (
               <View style={styles.menuCard}>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.menuName}>{item.name}</Text>
-                  <Text style={styles.menuDesc}>{item.description}</Text>
-                </View>
-                <View style={{ alignItems: "flex-end" }}>
-                  <Text style={styles.menuCourse}>{item.course}</Text>
-                  <Text style={styles.menuPrice}>
-                    R {item.price.toFixed(2)}
-                  </Text>
-                </View>
+                <Text style={styles.menuName}>{item.name}</Text>
+                <Text style={styles.menuDesc}>{item.description}</Text>
+                <Text style={styles.menuCourse}>{item.course}</Text>
+                <Text style={styles.menuPrice}>
+                  R {item.price.toFixed(2)}
+                </Text>
               </View>
             )}
           />
@@ -112,7 +107,7 @@ export default function HomeScreen() {
                   pathname: "/AddDishScreen",
                   params: {
                     role,
-                    currentDishes: JSON.stringify(dishes), // pass current dishes
+                    currentDishes: JSON.stringify(dishes),
                   },
                 })
               }
@@ -179,20 +174,90 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   background: { flex: 1, resizeMode: "cover" },
-  overlay: { ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(0,0,0,0.6)" },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.6)",
+  },
   container: { padding: 20, alignItems: "center", paddingTop: 80 },
-  title: { fontSize: 32, fontWeight: "bold", textAlign: "center", marginBottom: 8, color: "#fff" },
-  subtitle: { fontSize: 16, textAlign: "center", marginBottom: 20, color: "#ddd" },
-  statsBox: { backgroundColor: "rgba(255,255,255,0.15)", borderRadius: 15, padding: 15, marginBottom: 20, width: "100%", alignItems: "center" },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 8,
+    color: "#fff",
+  },
+  subtitle: {
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 20,
+    color: "#ddd",
+  },
+  statsBox: {
+    backgroundColor: "rgba(255,255,255,0.15)",
+    borderRadius: 15,
+    padding: 15,
+    marginBottom: 20,
+    width: "100%",
+    alignItems: "center",
+  },
   statsText: { fontSize: 16, color: "#fff", fontWeight: "600" },
-  card: { backgroundColor: "rgba(123, 44, 191, 0.3)", borderRadius: 15, padding: 20, marginBottom: 15, width: "100%", shadowColor: "#7B2CBF", shadowOpacity: 0.5, shadowOffset: { width: 0, height: 0 }, shadowRadius: 10, elevation: 4 },
+  card: {
+    backgroundColor: "rgba(201, 68, 27, 0.3)",
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 15,
+    width: "100%",
+    shadowColor: "#bf672cff",
+    shadowOpacity: 0.5,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 10,
+    elevation: 4,
+  },
   cardTitle: { fontSize: 20, fontWeight: "700", marginBottom: 6, color: "#fff" },
   cardText: { fontSize: 14, color: "#ccc" },
-  sectionTitle: { fontSize: 22, fontWeight: "700", color: "#fff", alignSelf: "flex-start", marginBottom: 10 },
-  menuCard: { flexDirection: "row", backgroundColor: "rgba(255,255,255,0.1)", borderRadius: 10, padding: 15, marginBottom: 10, borderWidth: 1, borderColor: "rgba(255,255,255,0.2)" },
-  menuName: { color: "#fff", fontWeight: "700", fontSize: 18, marginBottom: 4 },
-  menuDesc: { color: "#ccc", fontSize: 13 },
-  menuCourse: { color: "#fff", fontWeight: "600" },
-  menuPrice: { color: "#ddd", fontSize: 14 },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: "#fff",
+    alignSelf: "flex-start",
+    marginBottom: 10,
+  },
+
+  menuCard: {
+    backgroundColor: "rgba(255,255,255,0.15)",
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 15,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.25)",
+  },
+  menuName: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 20,
+    marginBottom: 6,
+    textAlign: "center",
+  },
+  menuDesc: {
+    color: "#ccc",
+    fontSize: 14,
+    marginBottom: 6,
+    textAlign: "center",
+  },
+  menuCourse: {
+    color: "#fff",
+    fontWeight: "600",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  menuPrice: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
+  },
   emptyText: { color: "#bbb", textAlign: "center", marginTop: 10 },
 });

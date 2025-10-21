@@ -22,12 +22,12 @@ export default function LoginScreen() {
 
   return (
     <ImageBackground
-      source={{ uri: "https://wallpaperaccess.com/full/460754.jpg" }}
+      source={{ uri: "https://img.freepik.com/premium-photo/food-background-black-herbs-spices-utensil-top-view-with-space-text_999431-900.jpg" }}
       style={styles.background}
     >
       <View style={styles.overlay} />
       <View style={styles.container}>
-        <Text style={styles.brand}>SSIK NOVA</Text>
+        <Text style={styles.brand}>Christoffels Menu</Text>
         <Text style={styles.title}>Welcome</Text>
 
         <Text style={styles.label}>Select Login Type:</Text>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.1)",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#7B2CBF",
+    borderColor: "#d01c1cff",
     marginBottom: 20,
     width: 250,
   },
@@ -95,11 +95,11 @@ const styles = StyleSheet.create({
     color: "#000000ff",
   },
   button: {
-    backgroundColor: "#7B2CBF",
+    backgroundColor: "#99470cff",
     paddingVertical: 14,
     paddingHorizontal: 80,
     borderRadius: 25,
-    shadowColor: "#7B2CBF",
+    shadowColor: "#d01c1cff",
     shadowOpacity: 0.8,
     shadowRadius: 10,
   },

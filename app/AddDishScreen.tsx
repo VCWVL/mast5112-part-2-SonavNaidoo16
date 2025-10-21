@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Alert,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { useRouter, useLocalSearchParams } from "expo-router";
 
 type Dish = {
@@ -23,14 +24,13 @@ export default function AddDishScreen() {
   const params = useLocalSearchParams();
   const role = params.role || "user";
 
-  // Parse current dishes from params or start empty
   const initialDishes = params.currentDishes
     ? JSON.parse(params.currentDishes as string)
     : [];
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [course, setCourse] = useState("");
+  const [course, setCourse] = useState<"Starter" | "Main" | "Dessert" | "">("");
   const [price, setPrice] = useState("");
 
   const handleAddDish = () => {
@@ -49,7 +49,6 @@ export default function AddDishScreen() {
 
     Alert.alert("Success", "Dish added successfully!");
 
-    // Send back full dishes array including new dish
     const updatedDishes = [...initialDishes, newDish];
 
     router.replace({
@@ -64,7 +63,7 @@ export default function AddDishScreen() {
   return (
     <ImageBackground
       source={{
-        uri: "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1000&q=80",
+        uri: "https://img.freepik.com/premium-photo/food-banner-vegetables-spices-top-view-free-copy-space_187166-5816.jpg",
       }}
       style={styles.background}
     >
@@ -86,13 +85,21 @@ export default function AddDishScreen() {
           value={description}
           onChangeText={setDescription}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Course (Starter / Main / Dessert)"
-          placeholderTextColor="#aaa"
-          value={course}
-          onChangeText={setCourse}
-        />
+
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={course}
+            dropdownIconColor="#000000ff"
+            onValueChange={(value) => setCourse(value)}
+            style={styles.picker}
+          >
+            <Picker.Item label="Select Course" value="" color="#000000ff" />
+            <Picker.Item label="Starter" value="Starter" color="#000000ff" />
+            <Picker.Item label="Main" value="Main" color="#000000ff" />
+            <Picker.Item label="Dessert" value="Dessert" color="#000000ff" />
+          </Picker>
+        </View>
+
         <TextInput
           style={styles.input}
           placeholder="Price (R)"
@@ -115,7 +122,33 @@ const styles = StyleSheet.create({
   overlay: { ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(0,0,0,0.6)" },
   container: { flex: 1, justifyContent: "center", alignItems: "center", padding: 20 },
   title: { fontSize: 28, color: "#fff", fontWeight: "bold", marginBottom: 20 },
-  input: { width: "100%", borderWidth: 1, borderColor: "#7B2CBF", backgroundColor: "rgba(255,255,255,0.1)", color: "#fff", padding: 12, borderRadius: 10, marginBottom: 15 },
-  button: { backgroundColor: "#7B2CBF", paddingVertical: 14, paddingHorizontal: 80, borderRadius: 25 },
+  input: {
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "#2c84bfff",
+    backgroundColor: "rgba(255,255,255,0.1)",
+    color: "#fff",
+    padding: 12,
+    borderRadius: 10,
+    marginBottom: 15,
+  },
+  pickerContainer: {
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "#2c84bfff",
+    backgroundColor: "rgba(255,255,255,0.1)",
+    borderRadius: 10,
+    marginBottom: 15,
+    overflow: "hidden",
+  },
+  picker: {
+    color: "#000000ff",
+  },
+  button: {
+    backgroundColor: "#2c84bfff",
+    paddingVertical: 14,
+    paddingHorizontal: 80,
+    borderRadius: 25,
+  },
   buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
 });
