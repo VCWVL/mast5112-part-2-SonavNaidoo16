@@ -80,7 +80,7 @@ Installation and Setup
 
 Clone the Repository
 
-git clone https://github.com/yourusername/christoffel-menu-app.git
+git clone https://github.com/VCWVL/mast5112-part-2-SonavNaidoo16/blob/master
 cd christoffel-menu-app
 
 
