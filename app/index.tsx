@@ -1,61 +1,134 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   StyleSheet,
   ImageBackground,
+  Animated,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { useRouter, useLocalSearchParams } from "expo-router"; 
+import { useRouter, useLocalSearchParams } from "expo-router";
 
 export default function LoginScreen() {
-  const router = useRouter();
-  const params = useLocalSearchParams(); 
-  const [selectedUser, setSelectedUser] = useState("user");
-  const dishesFromLogout = params.dishes; 
+  const router = useRouter(); // Used to navigate between screens
+  const params = useLocalSearchParams(); // Access route parameters (like dishes from logout)
+  const [selectedUser, setSelectedUser] = useState("user"); // Track which user type is selected
+  const dishesFromLogout = params.dishes; // Retrieve any dishes passed from the logout action
 
+  // Animation references
+  const fadeAnim = useRef(new Animated.Value(0)).current; // For screen fade-in/out animation
+  const scaleAnim = useRef(new Animated.Value(1)).current; // For button press scaling animation
+
+  // Run when the screen first loads
+  useEffect(() => {
+    // Fade in animation
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+
+    // Fade out when leaving the screen (cleanup)
+    return () => {
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 100,
+        useNativeDriver: true,
+      }).start();
+    };
+  }, []);
+
+  // Handle login button press
   const handleLogin = () => {
-    router.replace({ 
-      pathname: "/HomeScreen",
-      params: { 
-        role: selectedUser,
-        dishes: dishesFromLogout, 
-      },
+    // Fade out before navigating
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 400,
+      useNativeDriver: true,
+    }).start(() => {
+      // After fade out, navigate to the HomeScreen
+      router.replace({
+        pathname: "/HomeScreen",
+        params: {
+          role: selectedUser, // Pass the selected role (user or Christoffel)
+          dishes: dishesFromLogout, // Preserve dishes if coming from logout
+        },
+      });
     });
   };
 
+  // When button is pressed down (scale slightly smaller)
+  const handlePressIn = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 0.95,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  // When button is released (scale back to normal)
+  const handlePressOut = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      friction: 3,
+      tension: 40,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
-    <ImageBackground
-      source={{ uri: "https://img.freepik.com/premium-photo/food-background-black-herbs-spices-utensil-top-view-with-space-text_999431-900.jpg" }}
-      style={styles.background}
-    >
-      <View style={styles.overlay} />
-      <View style={styles.container}>
-        <Text style={styles.brand}>Christoffels Menu</Text>
-        <Text style={styles.title}>Welcome</Text>
+    // Animated fade container for smooth screen appearance
+    <Animated.View style={[styles.fadeContainer, { opacity: fadeAnim }]}>
+      {/* Background image */}
+      <ImageBackground
+        source={{
+          uri: "https://img.freepik.com/premium-photo/herbs-condiments-black-stone-background_266870-11940.jpg",
+        }}
+        style={styles.background}
+      >
+        {/* Dark overlay for contrast */}
+        <View style={styles.overlay} />
 
-        <Text style={styles.label}>Select Login Type:</Text>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={selectedUser}
-            style={styles.picker}
-            onValueChange={(itemValue) => setSelectedUser(itemValue)}
+        {/* Main content container */}
+        <View style={styles.container}>
+          <Text style={styles.brand}>Christoffels Menu</Text>
+          <Text style={styles.title}>Welcome</Text>
+
+          {/* Role selection */}
+          <Text style={styles.label}>Select Login Type:</Text>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={selectedUser}
+              style={styles.picker}
+              onValueChange={(itemValue) => setSelectedUser(itemValue)}
+            >
+              {/* Two available roles */}
+              <Picker.Item label="Christoffel (Chef)" value="christoffel" />
+              <Picker.Item label="User" value="user" />
+            </Picker>
+          </View>
+
+          {/* Login button with animation */}
+          <TouchableWithoutFeedback
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            onPress={handleLogin}
           >
-            <Picker.Item label="Christoffel (Chef)" value="christoffel" />
-            <Picker.Item label="User" value="user" />
-          </Picker>
+            <Animated.View style={[styles.button, { transform: [{ scale: scaleAnim }] }]}>
+              <Text style={styles.buttonText}>Login</Text>
+            </Animated.View>
+          </TouchableWithoutFeedback>
         </View>
-
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+    </Animated.View>
   );
 }
 
+// --- Styling Section ---
 const styles = StyleSheet.create({
+  fadeContainer: {
+    flex: 1,
+  },
   background: {
     flex: 1,
     resizeMode: "cover",
@@ -63,7 +136,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0,0,0,0.6)",
+    backgroundColor: "rgba(0,0,0,0.6)", // Semi-transparent overlay for readability
   },
   container: {
     flex: 1,
@@ -97,10 +170,10 @@ const styles = StyleSheet.create({
     width: 250,
   },
   picker: {
-    color: "#000000ff", 
+    color: "#000000ff", // Text color for picker items
   },
   button: {
-    backgroundColor: "#99470cff",
+    backgroundColor: "#99110cff",
     paddingVertical: 14,
     paddingHorizontal: 80,
     borderRadius: 25,
