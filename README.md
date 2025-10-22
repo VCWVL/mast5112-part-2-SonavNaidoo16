@@ -205,12 +205,22 @@ Referencing:
 Fiona, 2025. Pixd5112- LU 5: UX and the User Interface and Visual Design.[online] 
 Available at < LU 5: UX and the User Interface and Visual Design - Principles of UI and 
 UX design PIXD5112 2025 FT HMAW0501 VCKNDW Term2 GR01> 
+
 Background: 
+
 Pinterest, 2025. Image of abstract design.[online] Available at: 
 <https://i.pinimg.com/474x/04/ac/09/04ac09a6583bff1e7ddf90c305b2de67.jpg> 
 (Accessed: 1 September 2025). 
+
 Dreamstime 2025. Menu restaurant hand-drawn vegetables on old paper [Image]. 
 Available at: <https://thumbs.dreamstime.com/b/menu-restaurant-hand-drawn
 vegetables-old-paper-b-menu-restaurant-hand-drawn-vegetables-old-paper
 111775901.jpg > (Accessed: 2 September 2025).  
 
+PNGTree 2025. Illustrated vector background: restaurant menu design with paper texture, food and image [Onine]. Available at: https://png.pngtree.com/thumb_back/fw800/background/20231230/pngtree-illustrated-vector-background-restaurant-menu-design-with-paper-texture-food-and-image_13914730.png (Accessed: 22 October 2025).
+
+Pinterest 2025 Abstract image – original pin. [online] Available at: https://i.pinimg.com/originals/3a/00/a8/3a00a8bc91fffad7005fa5f8373b42b7.jpg (Accessed: 22 October 2025)
+
+Freepik 2025 Herbs and condiments on black stone background [Image]. Available at: https://img.freepik.com/premium-photo/herbs-condiments-black-stone-background_266870-11940.jpg (Accessed: 22 October 2025).
+
+Unsplash 2025 Photo of herbs and spices on dark background [Image]. Available at: https://images.unsplash.com/photo-1556910103-1c02745aae4d (Accessed: 22 October 2025).
