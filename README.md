@@ -140,16 +140,50 @@ Internet connection required for background images (hosted online).
 
 Future Enhancements
 
-Implement local storage or cloud database (e.g., Firebase) for persistent menu data.
+Pictures:
+Login Page: 
+<img width="434" height="889" alt="image" src="https://github.com/user-attachments/assets/cf61fea1-82f6-4bd2-b994-746d9126d6fb" />
+<img width="1551" height="974" alt="image" src="https://github.com/user-attachments/assets/f59dbe23-7e87-45ce-b24c-c30305d7eedc" />
+<img width="1548" height="979" alt="image" src="https://github.com/user-attachments/assets/7e87204e-c0c5-4cac-9488-b5bb24eea486" />
+<img width="1558" height="997" alt="image" src="https://github.com/user-attachments/assets/b60c021c-5317-4273-9366-464b16c0eb76" />
+<img width="1548" height="961" alt="image" src="https://github.com/user-attachments/assets/df42e72f-efe5-4d96-9e48-8b269ce64055" />
 
-Add authentication for secure Chef login.
+HomeScreen: 
+Logged in as chef:
+<img width="385" height="860" alt="image" src="https://github.com/user-attachments/assets/9ec30465-d094-4e38-8e7f-af14ed8d3939" />
+Logged in as user
+<img width="394" height="858" alt="image" src="https://github.com/user-attachments/assets/ee3421de-1c3f-43e6-9b0e-b1412c5e1fb8" />
+code:
+<img width="1557" height="939" alt="image" src="https://github.com/user-attachments/assets/034afed0-6219-4b89-98b6-feb8657505af" />
+<img width="1561" height="996" alt="image" src="https://github.com/user-attachments/assets/fbf9833b-e0a0-4804-bd7b-269422074908" />
+<img width="1562" height="970" alt="image" src="https://github.com/user-attachments/assets/fb36873b-ebfe-4195-b39b-e005432fd7eb" />
+<img width="1561" height="977" alt="image" src="https://github.com/user-attachments/assets/2d088007-0362-4d91-a51e-33121e21c764" />
+<img width="1546" height="984" alt="image" src="https://github.com/user-attachments/assets/46a398be-6384-4509-ab14-49f61607d321" />
+<img width="1559" height="942" alt="image" src="https://github.com/user-attachments/assets/f7372c4d-170f-4135-87ba-1f86dca19911" />
+<img width="1555" height="962" alt="image" src="https://github.com/user-attachments/assets/e5e5ab2a-21e7-47ab-9350-7bb0d8258aca" />
+<img width="1557" height="973" alt="image" src="https://github.com/user-attachments/assets/be07a301-739a-44d8-a107-c5db46b772a8" />
 
-Integrate an ordering system for customers.
+Add dish:
+<img width="387" height="862" alt="image" src="https://github.com/user-attachments/assets/918fbe5a-4a24-4f66-b934-b8d167b2eb50" />
+code:
+<img width="1562" height="989" alt="image" src="https://github.com/user-attachments/assets/1e6b8a3b-a8a8-47bf-ae61-efa592c84589" />
+<img width="1564" height="977" alt="image" src="https://github.com/user-attachments/assets/9600ac73-d8c7-4fbe-af33-cee843ecaf4d" />
+<img width="1551" height="978" alt="image" src="https://github.com/user-attachments/assets/b439042c-27c1-45ff-9fdd-1b7fc40f8808" />
+<img width="1570" height="983" alt="image" src="https://github.com/user-attachments/assets/fe8ef9ba-2837-4149-af77-c486dd85e960" />
 
-Include image upload for each dish.
+Remove dish:
+<img width="385" height="854" alt="image" src="https://github.com/user-attachments/assets/f504f561-20f1-4ab9-aaaa-4be1e0cb9b3a" />
+code:
+<img width="1558" height="974" alt="image" src="https://github.com/user-attachments/assets/00986dfc-2be2-484f-b539-e783fac949bb" />
+<img width="1555" height="988" alt="image" src="https://github.com/user-attachments/assets/12183935-261f-40d9-a6cb-35d91877a7ce" />
+<img width="1556" height="983" alt="image" src="https://github.com/user-attachments/assets/e4312003-e8c4-4f87-8c7e-f6c8f9dbb626" />
+<img width="1558" height="984" alt="image" src="https://github.com/user-attachments/assets/99db6fd7-03e7-4c51-bec3-53cda376ebdc" />
+<img width="1556" height="969" alt="image" src="https://github.com/user-attachments/assets/e725065d-eeb9-4277-9f57-4b4b4dad831e" />
 
-Author
-
-Developed by: Christoffel (Chef)
-Contributors: Sonav Naidoo
-Technology: React Native, Expo Router, TypeScript
+Help: 
+<img width="392" height="866" alt="image" src="https://github.com/user-attachments/assets/14a9362d-b4bc-4472-a85b-661ce1a97749" />
+<img width="1547" height="1004" alt="image" src="https://github.com/user-attachments/assets/90d191de-b041-4dac-b26e-75fdd64d953d" />
+<img width="1555" height="975" alt="image" src="https://github.com/user-attachments/assets/98000cbf-a7e6-4adc-a07e-f42d5b1ed312" />
+<img width="1560" height="972" alt="image" src="https://github.com/user-attachments/assets/2fa5efda-0564-4235-90cb-e5a54ccc0311" />
+<img width="1550" height="984" alt="image" src="https://github.com/user-attachments/assets/d02ba458-7e14-4feb-b036-99b43d4c163a" />
+<img width="1557" height="976" alt="image" src="https://github.com/user-attachments/assets/a8657648-288c-483d-8dd6-34ca6794afee" />
