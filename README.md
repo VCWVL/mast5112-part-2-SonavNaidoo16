@@ -142,6 +142,7 @@ Future Enhancements
 
 Pictures:
 Login Page: 
+
 <img width="434" height="889" alt="image" src="https://github.com/user-attachments/assets/cf61fea1-82f6-4bd2-b994-746d9126d6fb" />
 <img width="1551" height="974" alt="image" src="https://github.com/user-attachments/assets/f59dbe23-7e87-45ce-b24c-c30305d7eedc" />
 <img width="1548" height="979" alt="image" src="https://github.com/user-attachments/assets/7e87204e-c0c5-4cac-9488-b5bb24eea486" />
@@ -150,10 +151,15 @@ Login Page:
 
 HomeScreen: 
 Logged in as chef:
+
 <img width="385" height="860" alt="image" src="https://github.com/user-attachments/assets/9ec30465-d094-4e38-8e7f-af14ed8d3939" />
+
 Logged in as user
+
 <img width="394" height="858" alt="image" src="https://github.com/user-attachments/assets/ee3421de-1c3f-43e6-9b0e-b1412c5e1fb8" />
+
 code:
+
 <img width="1557" height="939" alt="image" src="https://github.com/user-attachments/assets/034afed0-6219-4b89-98b6-feb8657505af" />
 <img width="1561" height="996" alt="image" src="https://github.com/user-attachments/assets/fbf9833b-e0a0-4804-bd7b-269422074908" />
 <img width="1562" height="970" alt="image" src="https://github.com/user-attachments/assets/fb36873b-ebfe-4195-b39b-e005432fd7eb" />
@@ -164,16 +170,21 @@ code:
 <img width="1557" height="973" alt="image" src="https://github.com/user-attachments/assets/be07a301-739a-44d8-a107-c5db46b772a8" />
 
 Add dish:
+
 <img width="387" height="862" alt="image" src="https://github.com/user-attachments/assets/918fbe5a-4a24-4f66-b934-b8d167b2eb50" />
+
 code:
+
 <img width="1562" height="989" alt="image" src="https://github.com/user-attachments/assets/1e6b8a3b-a8a8-47bf-ae61-efa592c84589" />
 <img width="1564" height="977" alt="image" src="https://github.com/user-attachments/assets/9600ac73-d8c7-4fbe-af33-cee843ecaf4d" />
 <img width="1551" height="978" alt="image" src="https://github.com/user-attachments/assets/b439042c-27c1-45ff-9fdd-1b7fc40f8808" />
 <img width="1570" height="983" alt="image" src="https://github.com/user-attachments/assets/fe8ef9ba-2837-4149-af77-c486dd85e960" />
 
 Remove dish:
+
 <img width="385" height="854" alt="image" src="https://github.com/user-attachments/assets/f504f561-20f1-4ab9-aaaa-4be1e0cb9b3a" />
 code:
+
 <img width="1558" height="974" alt="image" src="https://github.com/user-attachments/assets/00986dfc-2be2-484f-b539-e783fac949bb" />
 <img width="1555" height="988" alt="image" src="https://github.com/user-attachments/assets/12183935-261f-40d9-a6cb-35d91877a7ce" />
 <img width="1556" height="983" alt="image" src="https://github.com/user-attachments/assets/e4312003-e8c4-4f87-8c7e-f6c8f9dbb626" />
@@ -181,9 +192,25 @@ code:
 <img width="1556" height="969" alt="image" src="https://github.com/user-attachments/assets/e725065d-eeb9-4277-9f57-4b4b4dad831e" />
 
 Help: 
+
 <img width="392" height="866" alt="image" src="https://github.com/user-attachments/assets/14a9362d-b4bc-4472-a85b-661ce1a97749" />
 <img width="1547" height="1004" alt="image" src="https://github.com/user-attachments/assets/90d191de-b041-4dac-b26e-75fdd64d953d" />
 <img width="1555" height="975" alt="image" src="https://github.com/user-attachments/assets/98000cbf-a7e6-4adc-a07e-f42d5b1ed312" />
 <img width="1560" height="972" alt="image" src="https://github.com/user-attachments/assets/2fa5efda-0564-4235-90cb-e5a54ccc0311" />
 <img width="1550" height="984" alt="image" src="https://github.com/user-attachments/assets/d02ba458-7e14-4feb-b036-99b43d4c163a" />
 <img width="1557" height="976" alt="image" src="https://github.com/user-attachments/assets/a8657648-288c-483d-8dd6-34ca6794afee" />
+
+Referencing: 
+
+Fiona, 2025. Pixd5112- LU 5: UX and the User Interface and Visual Design.[online] 
+Available at < LU 5: UX and the User Interface and Visual Design - Principles of UI and 
+UX design PIXD5112 2025 FT HMAW0501 VCKNDW Term2 GR01> 
+Background: 
+Pinterest, 2025. Image of abstract design.[online] Available at: 
+<https://i.pinimg.com/474x/04/ac/09/04ac09a6583bff1e7ddf90c305b2de67.jpg> 
+(Accessed: 1 September 2025). 
+Dreamstime 2025. Menu restaurant hand-drawn vegetables on old paper [Image]. 
+Available at: <https://thumbs.dreamstime.com/b/menu-restaurant-hand-drawn
+vegetables-old-paper-b-menu-restaurant-hand-drawn-vegetables-old-paper
+111775901.jpg > (Accessed: 2 September 2025).  
+
