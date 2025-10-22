@@ -1,0 +1,42 @@
+name: React Native Expo App CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js (same version as your local)
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run type checking (for TypeScript projects)
+      - name: TypeScript check
+        run: npx tsc --noEmit
+
+      # Step 5: Run linting (optional)
+      - name: Run ESLint
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx || true
+
+      # Step 6: Run tests (if you have Jest tests)
+      - name: Run Jest tests
+        run: npm test --if-present
+
+      # Step 7: Verify Expo project builds correctly
+      - name: Verify Expo build
+        run: npx expo export --platform web
